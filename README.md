@@ -49,7 +49,7 @@ npm run dev
 ## Environment Variables
 
 ```env
-PORT=8000
+PORT=5000
 MONGODB_URI=your_mongodb_connection_string
 CORS_ORIGIN=http://localhost:5173
 
