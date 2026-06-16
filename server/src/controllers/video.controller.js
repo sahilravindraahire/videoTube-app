@@ -94,7 +94,7 @@ export const publishVideo = asyncHandler(async (req, res) => {
     description: description.trim(),
     videoFile: videoUpload.secure_url,
     videoPublicId: videoUpload.public_id,
-    thumbnailFile: thumbnailUpload.secure_url,
+    thumbnail: thumbnailUpload.secure_url,
     thumbnailPublicId: thumbnailUpload.public_id,
     duration: videoUpload.duration || 0,
     owner: req.user._id,
