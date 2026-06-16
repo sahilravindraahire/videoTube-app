@@ -48,16 +48,16 @@ export const registerUser = asyncHandler(async(req, res) => {
     }
 
     const avatarFile = req.file?.path
-    let avatarpublicID
+    let avatarPublicId
 
     const coverImageFile = req.file?.path
-    let coverimagepublicID
+    let coverImagePublicId
 
     const avatarUpload = await uploadOnCloudinary(avatarFile)
     const coverImageUpload = await uploadOnCloudinary(coverImageFile)
 
-    avatarpublicID = avatarUpload.public_id
-    coverimagepublicID = coverImageUpload.public_id
+    avatarPublicId = avatarUpload.public_id
+    coverImagePublicId = coverImageUpload.public_id
 
     if(!avatarUpload){
         throw new ApiError(404,"something went wrong while uploading avatar on cloudinary")
@@ -68,9 +68,9 @@ export const registerUser = asyncHandler(async(req, res) => {
     const user = await User.create({
         username: username.toLowerCase(),
         avatar: avatarUpload.secure_url,
-        avatarPublicId: avatarpublicID,
+        avatarPublicId,
         coverImage: coverImageUpload.secure_url,
-        coverImagePublicId: coverimagepublicID,
+        coverImagePublicId,
         fullName,
         email,
         password: hashedPassword
