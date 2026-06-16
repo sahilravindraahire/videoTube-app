@@ -47,10 +47,10 @@ export const registerUser = asyncHandler(async(req, res) => {
         throw new ApiError(402, "user already exists");
     }
 
-    const avatarFile = req.file?.path
+    const avatarFile = req.files?.avatar?.[0]?.path
     let avatarPublicId
 
-    const coverImageFile = req.file?.path
+    const coverImageFile = req.files?.coverImage?.[0]?.path
     let coverImagePublicId
 
     const avatarUpload = await uploadOnCloudinary(avatarFile)
