@@ -75,8 +75,8 @@ export const publishVideo = asyncHandler(async (req, res) => {
     throw new ApiError(400, "title and description are required");
   }
 
-  const videoFile = req.file?.path;
-  const thumbnailFile = req.file?.path;
+  const videoFile = req.files?.videoFile?.[0]?.path;
+  const thumbnailFile = req.files?.thumbnail?.[0]?.path;
 
   if (!videoFile || !thumbnailFile) {
     throw new ApiError(400, "video and thumbnail file are required");
