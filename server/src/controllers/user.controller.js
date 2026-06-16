@@ -51,17 +51,20 @@ export const registerUser = asyncHandler(async(req, res) => {
     let avatarPublicId
 
     const coverImageFile = req.files?.coverImage?.[0]?.path
-    let coverImagePublicId
 
     const avatarUpload = await uploadOnCloudinary(avatarFile)
-    const coverImageUpload = await uploadOnCloudinary(coverImageFile)
-
-    avatarPublicId = avatarUpload.public_id
-    coverImagePublicId = coverImageUpload.public_id
 
     if(!avatarUpload){
         throw new ApiError(404,"something went wrong while uploading avatar on cloudinary")
     }
+
+    const coverImageUpload = await uploadOnCloudinary(coverImageFile)
+
+    if(!coverImageUpload){
+        throw new ApiError(404,"something went wrong while uploading coverImage on cloudinary")
+    }
+
+    avatarPublicId = avatarUpload.public_id
 
     const hashedPassword = await bcrypt.hash(password, 10)
 
@@ -69,8 +72,8 @@ export const registerUser = asyncHandler(async(req, res) => {
         username: username.toLowerCase(),
         avatar: avatarUpload.secure_url,
         avatarPublicId,
-        coverImage: coverImageUpload.secure_url,
-        coverImagePublicId,
+        coverImage: coverImageUpload.secure_url || "",
+        coverImagePublicId: coverImageUpload.public_id || "",
         fullName,
         email,
         password: hashedPassword
