@@ -234,7 +234,7 @@ export const updateAccountDetails = asyncHandler(async(req, res) => {
 })
 
 export const updateAvatar = asyncHandler(async(req, res) => {
-    const avtarFile = req.file?.avatar?.[0]?.path
+    const avtarFile = req.file?.path
 
     if(!avtarFile){
         throw new ApiError(401, "avatar file is not avalable");
@@ -267,7 +267,7 @@ export const updateAvatar = asyncHandler(async(req, res) => {
 })
 
 export const updateCoverImage = asyncHandler(async(req, res) => {
-    const coverImageFile = req.file?.coverImage?.[0]?.path
+    const coverImageFile = req.file?.path
 
     if(!coverImageFile){
         throw new ApiError(401, "coverImage is not available")
